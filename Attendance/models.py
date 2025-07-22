@@ -1,30 +1,57 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 # 生徒のデータを管理する
 class Student(models.Model):
     student_name = models.CharField(max_length=16)
-    student_number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2147483647)])
-    email = models.EmailField(max_length=255)
+    student_number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2147483647)], unique=True)
+    email = models.EmailField(max_length=255, unique=True)
+    
+    def __str__(self):
+        return f'{self.student_name} : {self.student_number} : {self.email}'
 
 # 先生のデータを管理する
-class Teacher(models.Model):
+# class Teacher(models.Model):
+#     teacher_name = models.CharField(max_length=16)
+#     email = models.EmailField(max_length=255, unique=True)
+    
+#     def __str__(self):
+#         return f'{self.teacher_name} : {self.email}'
+
+
+class Teacher(AbstractUser):
     teacher_name = models.CharField(max_length=16)
-    email = models.EmailField(max_length=255)
+    email = models.EmailField(max_length=255, unique=True)
+    
     
 # 教科のデータを管理する
 class Subject(models.Model):
     subject_name = models.CharField(max_length=64)
-    charge_teacher_id = models.ForeignKey(Teacher, on_delete=models.PROTECT)
+    charge_teacher = models.ForeignKey(Teacher, on_delete=models.PROTECT)
+    place = models.IntegerField()
     
+    def __str__(self):
+        return f'{self.subject_name} : {self.charge_teacher}'
+
 # 時間割
 class Period(models.Model):
     day_of_week = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     period = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(4)])
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
     year = models.PositiveIntegerField(validators=[MinValueValidator(2025)])
-    semester = models.IntegerField()
+    semester = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(2)])
+    class Meta:
+        # 全く同じ時間割が入ることを防ぐ
+        constraints = [
+            models.UniqueConstraint(
+                fields=['day_of_week', 'period', 'year', 'semester'],
+                name = "period_unique",
+            )
+        ]
+    def __str__(self):
+        return f'{self.day_of_week}.{self.period} : {self.subject}'
 
 # 出席状況、打刻
 class Attend(models.Model):
@@ -41,12 +68,25 @@ class Attend(models.Model):
                 name = "student_period_unique",
             )
         ]
+    def __str__(self):
+        return self.student
     
-# 休講用のテーブル
-class Cancel(models.Model):
-    period = models.ForeignKey(Period)
+# 休講・振替用のテーブル
+class ReplacementInfo(models.Model):
+    original_period = models.ForeignKey(Period, on_delete=models.CASCADE)
+    replacement_day_of_week = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    replacement_period = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(4)])
     reason = models.TextField()
-    cancel_datetime = models.DateTimeField()
-    change_day_of_week = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    change_period = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(4)])
+    cancel_date = models.DateField()
     
+    class Meta:
+    # 振替授業が重複して登録されるのを防ぐ
+        constraints = [
+            models.UniqueConstraint(
+                fields=["original_period", "cancel_date"],
+                name = "cancel_unique",
+            )
+        ]
+    
+    def __str__(self):
+        return self.original_period
