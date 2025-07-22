@@ -78,12 +78,13 @@ class ReplacementInfo(models.Model):
     replacement_period = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(4)])
     reason = models.TextField()
     cancel_date = models.DateField()
+    replacement_date = models.DateField()
     
     class Meta:
     # 振替授業が重複して登録されるのを防ぐ
         constraints = [
             models.UniqueConstraint(
-                fields=["original_period", "cancel_date"],
+                fields=["original_period", "cancel_date", "replacement_period"],
                 name = "cancel_unique",
             )
         ]
