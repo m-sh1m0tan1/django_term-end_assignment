@@ -4,13 +4,13 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 # 生徒のデータを管理する
-class Student(models.Model):
-    student_name = models.CharField(max_length=16)
-    student_number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2147483647)], unique=True)
-    email = models.EmailField(max_length=255, unique=True)
+# class Student(models.Model):
+#     student_name = models.CharField(max_length=16)
+#     student_number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2147483647)], unique=True)
+#     email = models.EmailField(max_length=255, unique=True)
     
-    def __str__(self):
-        return f'{self.student_name} : {self.student_number} : {self.email}'
+#     def __str__(self):
+#         return f'{self.student_name} : {self.student_number} : {self.email}'
 
 # 先生のデータを管理する
 # class Teacher(models.Model):
@@ -21,16 +21,32 @@ class Student(models.Model):
 #         return f'{self.teacher_name} : {self.email}'
 
 
-class Teacher(AbstractUser):
-    teacher_name = models.CharField(max_length=16)
-    email = models.EmailField(max_length=255, unique=True)
+# class Teacher(models.Model):
+#     teacher_name = models.CharField(max_length=16)
+#     email = models.EmailField(max_length=255, unique=True)
+    
+#     def __str__(self):
+#         return self.name
+    
+class User(AbstractUser):
+    role = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(2)], null=True)
+    name = models.CharField(max_length=16)
+    email = models.EmailField(max_length=255, null=True)
+    number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2147483647)], null=True)
+    
+    def __str__(self):
+        if self.role == 1:
+            return f'先生 {self.name}'
+        elif self.role == 2:
+            return f'生徒 {self.name}'
+        return f'部外者 {self.name} {self.email}'
     
     
 # 教科のデータを管理する
 class Subject(models.Model):
     subject_name = models.CharField(max_length=64)
-    charge_teacher = models.ForeignKey(Teacher, on_delete=models.PROTECT)
-    place = models.IntegerField()
+    charge_teacher = models.ForeignKey(User, on_delete=models.PROTECT)
+    place = models.IntegerField(validators=[MaxValueValidator(999)])
     
     def __str__(self):
         return f'{self.subject_name} : {self.charge_teacher}'
@@ -55,7 +71,7 @@ class Period(models.Model):
 
 # 出席状況、打刻
 class Attend(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.PROTECT)
+    student = models.ForeignKey(User, on_delete=models.PROTECT)
     period = models.ForeignKey(Period, on_delete=models.PROTECT)
     time = models.DateTimeField(auto_now_add=True)
     leave_early = models.BooleanField(default=False)
