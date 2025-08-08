@@ -13,7 +13,7 @@ class User(AbstractUser):
     role = models.IntegerField(choices=role_choices, null=True)
     # name = models.CharField(max_length=16)
     # email = models.EmailField(max_length=255, null=True)
-    number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2147483647)], null=True)
+    number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2147483647)], null=True, unique=True)
     
     def __str__(self):
         if self.role == 1:
