@@ -1,0 +1,17 @@
+@charset 'utf-8';
+body{
+    text-align: center;
+}
+
+header{
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+li {
+    list-style-type: none;
+}
+

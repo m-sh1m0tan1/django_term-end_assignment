@@ -1,1 +1,5 @@
+{% extends "base.html" %}
+{% block body %}
 <h1>すべてをあきらめた</h1>
+<a href="{% url "logout" %}"><button type="button">ログアウト</button></a>
+{% endblock body %}

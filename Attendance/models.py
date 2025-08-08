@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import AbstractUser
-from accounts.models import User
+from django.conf import settings
 
 # Create your models here.
 # 生徒のデータを管理する
@@ -33,7 +33,7 @@ from accounts.models import User
 # 教科のデータを管理する
 class Subject(models.Model):
     subject_name = models.CharField(max_length=64)
-    charge_teacher = models.ForeignKey(User, on_delete=models.PROTECT)
+    charge_teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     place = models.IntegerField(validators=[MaxValueValidator(999)])
     
     def __str__(self):
@@ -59,7 +59,7 @@ class Period(models.Model):
 
 # 出席状況、打刻
 class Attend(models.Model):
-    student = models.ForeignKey(User, on_delete=models.PROTECT)
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     period = models.ForeignKey(Period, on_delete=models.PROTECT)
     time = models.DateTimeField(auto_now_add=True)
     leave_early = models.BooleanField(default=False)
