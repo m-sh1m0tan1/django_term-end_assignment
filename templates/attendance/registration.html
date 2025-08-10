@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>新規登録</h1>
+<table>
+    <tr>
+        <th>教科名</th>
+        <th>講師名</th>
+        <th>教室</th>
+    </tr>
+    {% for data in Subject %}
+    <tr>
+        <td>{{data.subject_name}}</td>
+        <td>{{data.charge_teacher}}</td>
+        <td>
+            {% if data.place is None %}
+                未定
+            {% else %}
+                {{data.place}}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<hr>
+<table>
+    <tr>
+        <th>曜日</th>
+        <th>時間帯</th>
+        <th>教科</th>
+        <th>開講年度</th>
+        <th>期</th>
+    </tr>
+    {% for data in Period %}
+    <tr>
+        <td>{{data.day_of_week}}</td>
+        <td>{{data.period}}</td>
+        <td>{{data.subject}}</td>
+        <td>{{data.year}}</td>
+        <td>{{data.semester}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock body %}

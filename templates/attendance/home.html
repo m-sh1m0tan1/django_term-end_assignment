@@ -1,13 +1,9 @@
 {% extends "base.html" %}
+{% block user %}{{user}}でログイン中{% endblock %}
 {% block body %}
 {% if user.is_authenticated %}
 <h1>すべてをあきらめた</h1>
-<p>{{user}}でログイン中</p>
+<a href="{% url "attendance:Registration" %}"></a>
 <a href="{% url "logout" %}"><button type="button">ログアウト</button></a>
-{% else %}
-<script>window.addEventListener('load', function() {
-    window.location.href='{% url "login" %}';
-})
-</script>
 {% endif %}
 {% endblock body %}
