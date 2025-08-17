@@ -39,7 +39,8 @@ class Subject(models.Model):
     place = models.IntegerField(validators=[MaxValueValidator(999)], verbose_name='実施する教室', blank=True, null=True)
     
     def __str__(self):
-        return f'{self.subject_name} : {self.charge_teacher}'
+        # return f'{self.subject_name} : {self.charge_teacher}'
+        return self.subject_name
 
 # 時間割
 class Period(models.Model):
@@ -76,7 +77,27 @@ class Period(models.Model):
             )
         ]
     def __str__(self):
-        return f'{self.day_of_week_choices[self.day_of_week - 1][1]}{self.period_choices[self.period - 1][1]} - {self.subject}'
+        # return f'{self.day_of_week_choices[self.day_of_week - 1][1]}{self.period_choices[self.period - 1][1]} - {self.subject}'
+        return str(self.subject)
+    
+    @property
+    def day_of_week_jp(self):
+        days = {
+            1 : '月',
+            2 : '火',
+            3 : '水',
+            4 : '木',
+            5 : '金',
+        }
+        return days.get(self.day_of_week, '')
+    
+    @property
+    def semester_jp(self):
+        semesters = {
+            1 : '前期',
+            2 : '後期',
+        }
+        return semesters.get(self.semester, '')
 
 # 出席状況、打刻
 class Attend(models.Model):

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>新規登録</h1>
+
+<h3>教科</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit">
+</form>
+
+<h3></h3>
+{% endblock body %}

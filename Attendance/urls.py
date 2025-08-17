@@ -1,6 +1,9 @@
 from django.urls import path
 from .views import *
+
+app_name = 'attendance'
+
 urlpatterns = [
-    path('home/', IndexView.as_view(), name="IndexView"),
-    path('registration/', RegistrationView.as_view(), name='RegistrationView'),
+    path('home/', ModelListView.as_view(), name="ModelListView"),
+    path('SubjectCreate/', SubjectCreateView.as_view(), name='SubjectCreateView'),
 ]
