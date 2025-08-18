@@ -1,8 +1,10 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from datetime import datetime
+from django.urls import reverse
+
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 # 生徒のデータを管理する
@@ -41,6 +43,10 @@ class Subject(models.Model):
     def __str__(self):
         # return f'{self.subject_name} : {self.charge_teacher}'
         return self.subject_name
+    
+    def get_absolute_url(self):
+        # urls.pyにてapp_nameを設定している場合はreverse関数にnameを渡すときにapp_nameも含めないといけない
+        return reverse("attendance:ModelListView")
 
 # 時間割
 class Period(models.Model):
@@ -66,16 +72,17 @@ class Period(models.Model):
     day_of_week = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], choices=day_of_week_choices, verbose_name='曜日')
     period = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(4)], verbose_name='時間帯', choices=period_choices)
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT, verbose_name='教科')
-    year = models.PositiveIntegerField(validators=[MinValueValidator(2025)], verbose_name='年(デフォルトは今の年)', default=datetime.now().year, blank=True)
+    year = models.PositiveIntegerField(validators=[MinValueValidator(2025)], verbose_name='年', default=datetime.now().year, blank=True)
     semester = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(2)], verbose_name='学期', choices=semester_choices)
     class Meta:
         # 全く同じ時間割が入ることを防ぐ
         constraints = [
             models.UniqueConstraint(
-                fields=['day_of_week', 'period', 'year', 'semester'],
+                fields=['day_of_week', 'period', 'year', 'semester', 'subject'],
                 name = "period_unique",
             )
         ]
+    
     def __str__(self):
         # return f'{self.day_of_week_choices[self.day_of_week - 1][1]}{self.period_choices[self.period - 1][1]} - {self.subject}'
         return str(self.subject)

@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
-<h1>新規登録</h1>
+<h1>時間割登録</h1>
 
-<h3>教科</h3>
 <form method="POST">
     {% csrf_token %}
     {{form.as_p}}
@@ -13,8 +12,8 @@
 {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %} >{{ message }}</li>
         {% endfor %}
     </ul>
 {% endif %}
-{% endblock body %}
+{% endblock %}
