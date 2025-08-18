@@ -1,11 +1,13 @@
 {% extends "base.html" %}
+{% block user %}{{user}}でログイン中{% endblock %}
+{% block title %}{{object|yesno:'時間割更新,時間割登録'}}{% endblock %}
 {% block body %}
-<h1>時間割登録</h1>
+<h1>{{object|yesno:'時間割更新,時間割登録'}}</h1>
 
 <form method="POST">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit">
+    <input type="submit" value="{{object|yesno:'更新,作成'}}">
     <a href="{% url "attendance:ModelListView" %}"><button type="button">戻る</button></a>
 </form>
 

@@ -60,10 +60,10 @@ class PeriodCreateView(LoginRequiredMixin, generic.CreateView):
     
     def form_valid(self, form):
         self.object = form.save()
-        
+        day_of_week = ['月', '火', '水', '木', '金']
         continue_adding = form.cleaned_data.get('continue_adding')
         if continue_adding:
-            messages.success(self.request, f'{self.object.subject}を{self.object.day_of_week}曜日{self.object.period}限目に設定しました。')
+            messages.success(self.request, f'{self.object.subject}を{day_of_week[self.object.day_of_week - 1]}曜日{self.object.period}限目に設定しました。')
 
             return redirect(reverse_lazy('attendance:PeriodCreateView'))
         
@@ -72,3 +72,14 @@ class PeriodCreateView(LoginRequiredMixin, generic.CreateView):
         
     def get_absolute_url(self):
         return self.object.get_absolute_url()
+    
+class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Subject
+    template_name = 'attendance/SubjectCreate.html'
+    fields = '__all__'
+
+
+class PeriodUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Period
+    template_name = 'attendance/PeriodCreate.html'
+    fields = '__all__'

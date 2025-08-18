@@ -7,4 +7,6 @@ urlpatterns = [
     path('home/', ModelListView.as_view(), name="ModelListView"),
     path('SubjectCreate/', SubjectCreateView.as_view(), name='SubjectCreateView'),
     path('PeriodCreate/', PeriodCreateView.as_view(), name='PeriodCreateView'),
+    path('SubjectUpdate/<int:pk>/', SubjectUpdateView.as_view(), name="SubjectUpdateView"),
+    path('PeriodUpdate/<int:pk>/', PeriodUpdateView.as_view(), name="PeriodUpdateView"),
 ]

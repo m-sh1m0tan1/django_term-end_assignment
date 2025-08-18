@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block user %}{{user}}でログイン中{% endblock %}
+{% block title %}ホーム{% endblock %}
 {% block body %}
 {% if user.is_authenticated %}
 <table>
@@ -19,6 +20,7 @@
                 {{data.place}}
             {% endif %}
         </td>
+        <td><a href="{% url "attendance:SubjectUpdateView" data.id %}"><button type="button">編集</button></a></td>
     </tr>
     {% endfor %}
 </table>
@@ -38,6 +40,7 @@
         <td>{{data.subject}}</td>
         <td>{{data.year}}</td>
         <td>{{data.semester_jp}}</td>
+        <td><a href="{% url "attendance:PeriodUpdateView" data.id %}"><button type="button">編集</button></a></td>
     </tr>
     {% endfor %}
 </table>
