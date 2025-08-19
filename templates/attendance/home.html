@@ -27,21 +27,20 @@
 <hr>
 <table>
     <tr>
-        <th>曜日</th>
-        <th>時間帯</th>
-        <th>教科</th>
-        <th>開講年度</th>
-        <th>期</th>
+        <th></th>
+        <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th>
     </tr>
-    {% for data in Period %}
-    <tr>
-        <td>{{data.day_of_week_jp}}</td>
-        <td>{{data.period}}</td>
-        <td>{{data.subject}}</td>
-        <td>{{data.year}}</td>
-        <td>{{data.semester_jp}}</td>
-        <td><a href="{% url "attendance:PeriodUpdateView" data.id %}"><button type="button">編集</button></a></td>
-    </tr>
+    {% for row in timetable %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            {% for subjects in row %}
+                <td>
+                    {% for data in subjects %}
+                        <a href="{% url "attendance:PeriodUpdateView" data.id %}">{{ data.subject }}</a><br>
+                    {% endfor %}
+                </td>
+            {% endfor %}
+        </tr>
     {% endfor %}
 </table>
 <a href="{% url 'attendance:SubjectCreateView' %}"><button type="button">教科新規登録</button></a><br>

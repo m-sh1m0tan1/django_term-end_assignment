@@ -36,8 +36,8 @@ from django.core.exceptions import ValidationError
 # 教科のデータを管理する
 class Subject(models.Model):
     subject_name = models.CharField(max_length=64, verbose_name='教科名')
-    charge_teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, verbose_name='担当教員', limit_choices_to={'role':
-        1})
+    charge_teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='担当教員', limit_choices_to={'role':
+        1}, null=True)
     place = models.IntegerField(validators=[MaxValueValidator(999)], verbose_name='実施する教室', blank=True, null=True)
     
     def __str__(self):
@@ -71,7 +71,7 @@ class Period(models.Model):
     ]
     day_of_week = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], choices=day_of_week_choices, verbose_name='曜日')
     period = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(4)], verbose_name='時間帯', choices=period_choices)
-    subject = models.ForeignKey(Subject, on_delete=models.PROTECT, verbose_name='教科')
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, verbose_name='教科')
     year = models.PositiveIntegerField(validators=[MinValueValidator(2025)], verbose_name='年', default=datetime.now().year, blank=True)
     semester = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(2)], verbose_name='学期', choices=semester_choices)
     class Meta:
@@ -109,7 +109,7 @@ class Period(models.Model):
 # 出席状況、打刻
 class Attend(models.Model):
     student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, verbose_name='生徒', limit_choices_to={'role': 2})
-    period = models.ForeignKey(Period, on_delete=models.PROTECT, verbose_name='授業', limit_choices_to={'year' : datetime.now().year})
+    period = models.ForeignKey(Period, on_delete=models.CASCADE, verbose_name='授業', limit_choices_to={'year' : datetime.now().year})
     time = models.DateTimeField(auto_now_add=True, verbose_name='打刻時間')
     leave_early = models.BooleanField(default=False, verbose_name='早退フラグ')
     

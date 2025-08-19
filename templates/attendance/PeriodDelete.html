@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block user %}{{ user}}でログイン中{% endblock %}
+{% block body %}
+<h1>時間割削除</h1>
+
+<p>{{object.subject}}を
+    {% if object.day_of_week == 1 %}月曜日
+    {% elif object.day_of_week == 2 %}火曜日
+    {% elif object.day_of_week == 3 %}水曜日
+    {% elif object.day_of_week == 4 %}木曜日
+    {% elif object.day_of_week == 5 %}金曜日
+    {% endif %}
+    {{object.period}}限目から削除しますか？
+</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">削除</button>
+    <a href="{% url "attendance:PeriodUpdateView" object.id %}"><button type="button">戻る</button></a>
+</form>
+{% endblock %}

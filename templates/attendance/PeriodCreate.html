@@ -9,6 +9,9 @@
     {{form.as_p}}
     <input type="submit" value="{{object|yesno:'更新,作成'}}">
     <a href="{% url "attendance:ModelListView" %}"><button type="button">戻る</button></a>
+    {% if object %} {% comment %}yesnoはテキストの切り替え専用らしいです{% endcomment %}
+        <a href="{% url "attendance:PeriodDeleteView" object.id %}"><button type="button">削除</button></a>
+    {% endif %}
 </form>
 
 {% if messages %}

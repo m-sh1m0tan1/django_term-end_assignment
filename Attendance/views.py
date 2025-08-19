@@ -24,6 +24,15 @@ class ModelListView(LoginRequiredMixin, generic.ListView):
         context_data['Period'] = Period.objects.all()
         context_data['Attend'] = Attend.objects.all()
         context_data['ReplacementInfo'] = ReplacementInfo.objects.all()
+        # 曜日×時限の二次元配列を作成（例：2時限分）
+        timetable = []
+        for period in range(1, 5):  
+            row = []
+            for day in range(1, 6): 
+                subjects = Period.objects.filter(day_of_week=day, period=period)
+                row.append(subjects)
+            timetable.append(row)
+        context_data['timetable'] = timetable
         return context_data
     
 
@@ -48,7 +57,7 @@ class SubjectCreateView(LoginRequiredMixin, generic.CreateView):
             return redirect(reverse_lazy('attendance:SubjectCreateView'))
         
         else:
-            return super().form_valid(form)
+            return redirect(reverse_lazy('attendance:ModelListView'))
         
     def get_success_url(self):
         return self.object.get_absolute_url()
@@ -68,7 +77,7 @@ class PeriodCreateView(LoginRequiredMixin, generic.CreateView):
             return redirect(reverse_lazy('attendance:PeriodCreateView'))
         
         else:
-            return super().form_valid(form)
+            return redirect(reverse_lazy('attendance:ModelListView'))
         
     def get_absolute_url(self):
         return self.object.get_absolute_url()
@@ -83,3 +92,13 @@ class PeriodUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Period
     template_name = 'attendance/PeriodCreate.html'
     fields = '__all__'
+
+class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Subject
+    template_name = 'attendance/SubjectDelete.html'
+    success_url = reverse_lazy('attendance:ModelListView')
+    
+class PeriodDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Period
+    template_name = 'attendance/PeriodDelete.html'
+    success_url = reverse_lazy('attendance:ModelListView')
