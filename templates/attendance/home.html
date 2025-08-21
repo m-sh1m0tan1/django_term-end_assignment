@@ -45,6 +45,7 @@
 </table>
 <a href="{% url 'attendance:SubjectCreateView' %}"><button type="button">教科新規登録</button></a><br>
 <a href="{% url "attendance:PeriodCreateView" %}"><button type="button">時間割登録</button></a><br>
+<a href="{% url "signup" %}"><button type="button">ユーザー新規登録</button></a><br>
 <a href="{% url 'logout' %}"><button type="button">ログアウト</button></a>
 {% endif %}
 {% endblock body %}

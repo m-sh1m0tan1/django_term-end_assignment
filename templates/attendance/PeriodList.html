@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body %}
+    {% for data in Period %}
+    {{data.subject}}
+    {% endfor %}
+    <br>
+    <a href="{% url "attendance:Semester1View" %}"><button type="button">前期</button></a>
+    <a href="{% url "attendance:Semester2View" %}"><button type="button">後期</button></a>
+{% endblock body %}

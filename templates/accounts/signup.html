@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
+{% block user %}
+    {% if not user.is_anonymous %}
+       {{user}}でログイン中
+    {% endif %}
+{% endblock %}
 {% block title %}signup{% endblock %}
 {% block css %}<link rel="stylesheet" href="{% static "css/signup.css" %}">{% endblock %}
 {% block body %}
+{% comment %} <p>{{user}}</p> {% endcomment %}
 <form method="POST">
     {% csrf_token %}
     <ul>
         {{ form.as_ul }}
     </ul>
     <input type="submit">
-    <a href="{% url "login" %}"><button type="button">ログイン</button></a>
+    <a href="{% url "attendance:ModelListView" %}"><button type="button">ホームに戻る</button></a>
 </form>
 {% endblock %}

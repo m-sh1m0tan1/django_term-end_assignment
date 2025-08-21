@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block user %}{{user}}でログイン中{% endblock %}
+{% block title %}生徒用{% endblock title %}
+{% block body %}
+{% if user.is_authenticated %}
+
+{% if messages %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="出席">
+    <a href="{% url "logout" %}"><button type="button">ログアウト</button></a>
+</form>
+{% endif %}
+
+<h3>本日の打刻記録</h3>
+{% for data in AttendanceRecord %}
+{% comment %} {{data.student}} {% endcomment %}
+{{data.period}}
+{{data.time}}
+<br>
+{% endfor %}
+{% endblock body %}

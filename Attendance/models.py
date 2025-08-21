@@ -1,10 +1,9 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
-from datetime import datetime
 from django.urls import reverse
 
-from django.core.exceptions import ValidationError
+from datetime import datetime
 
 # Create your models here.
 # 生徒のデータを管理する
@@ -35,7 +34,7 @@ from django.core.exceptions import ValidationError
     
 # 教科のデータを管理する
 class Subject(models.Model):
-    subject_name = models.CharField(max_length=64, verbose_name='教科名')
+    subject_name = models.CharField(max_length=64, verbose_name='教科名', unique=True)
     charge_teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='担当教員', limit_choices_to={'role':
         1}, null=True)
     place = models.IntegerField(validators=[MaxValueValidator(999)], verbose_name='実施する教室', blank=True, null=True)
@@ -122,7 +121,7 @@ class Attend(models.Model):
             )
         ]
     def __str__(self):
-        return self.student
+        return str(self.student)
     
 # 休講・振替用のテーブル
 class ReplacementInfo(models.Model):
