@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-default_db_url = 'sqlite:///' + str(BASE_DIR / 'db.sqlite3')
+default_dburl = 'sqlite:///' + str(BASE_DIR / 'db.sqlite3')
 
 ROOT_URLCONF = 'config.urls'
 
@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # }
 
 DATABASES = {
-    'default' : config('DATABASE_URL', default=default_db_url, cast=dburl),
+    'default' : config('DATABASE_URL', default=default_dburl, cast=dburl),
 }
 
 # Password validation
@@ -131,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = str(BASE_DIR / 'static')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static')
 # ]
