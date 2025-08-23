@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block css %}<link rel="stylesheet" href="{% static "css/logout.css" %}">{% endblock css %}
-{% block title %}logout{% endblock title %}
+{% block title %}ログアウト{% endblock title %}
 {% block body %}
 <h1>ログアウトしました。</h1>
 <a href="{% url "login" %}"><button type="button">再ログイン</button></a>

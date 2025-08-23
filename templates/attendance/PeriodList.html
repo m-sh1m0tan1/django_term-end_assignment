@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block user %}{{user}}でログイン中{% endblock user %}
+{% block title %}時間割一覧{% endblock title %}
 {% block css %}<link rel="stylesheet" href="{% static "css/PeriodList.css" %}">{% endblock css %}
 {% block body %}
 <div class="flex">
