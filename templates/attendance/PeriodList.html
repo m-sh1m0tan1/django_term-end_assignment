@@ -1,9 +1,33 @@
 {% extends "base.html" %}
+{% load static %}
+{% block user %}{{user}}でログイン中{% endblock user %}
+{% block css %}<link rel="stylesheet" href="{% static "css/PeriodList.css" %}">{% endblock css %}
 {% block body %}
-    {% for data in Period %}
-    {{data.subject}}
-    {% endfor %}
+<div class="flex">
+
+    <div class="main">
+        <table>
+        <tr>
+            <th></th>
+            <th class="title">月</th><th class="title">火</th><th class="title">水</th><th class="title">木</th><th class="title">金</th>
+        </tr>
+        {% for row in timetable %}
+        <tr>
+            <td class="counter">{{ forloop.counter }}</td>
+            {% for subjects in row %}
+            <td>
+                {% for data in subjects %}
+                <a href="{% url "attendance:PeriodUpdateView" data.id %}" class="subject">{{ data.subject }}</a><br>
+                {% endfor %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
     <br>
-    <a href="{% url "attendance:Semester1View" %}"><button type="button">前期</button></a>
-    <a href="{% url "attendance:Semester2View" %}"><button type="button">後期</button></a>
+    <a href="{% url "attendance:PeriodSemester1View" %}"><button type="button">前期</button></a>
+    <a href="{% url "attendance:PeriodSemester2View" %}"><button type="button">後期</button></a>
+    <a href="{% url "attendance:ModelListView" %}"><button type="button">ホームへ戻る</button></a>
+</div>
+</div>
 {% endblock body %}

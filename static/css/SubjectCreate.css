@@ -1,0 +1,49 @@
+@charset 'utf-8';
+
+button,
+input[type="submit"] {
+    height: 50px;
+    min-width: 120px;     
+    font-size: 1rem;
+    padding: 0 16px;
+    margin-top: 10px;
+    border-radius: 5px;   
+    background-color: white;
+    border-width: 1px;
+    box-sizing: border-box;
+}
+
+button:hover,
+input[type="submit"]:hover{
+    background-color: #00ff2f;
+    cursor: pointer;
+}
+
+
+.main{
+    width: 70%;
+    background-color: #ccffd5;
+    margin: 20px auto;
+    border-radius: 20px;
+    /* margin-top: 20px; */
+    /* text-align: center; */
+}
+
+.main table{
+    margin: 0 auto;
+}
+
+select{
+    margin-top: 20px;
+    min-width: 200px;
+    min-height: 50px;
+    text-align: center;
+}
+
+.main td, .main th{
+    padding-top: 20px;
+}
+
+input[type=checkbox] {
+    transform: scale(2.0);
+}

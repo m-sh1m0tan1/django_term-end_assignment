@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static "css/AttendCheck.css" %}">{% endblock css %}
+{% block title %}出席状況確認{% endblock title %}
+{% block user %}{{user}}がログイン中{% endblock user %}
+{% block body %}
+<div class="main">
+
+    <h1>{{subject}}出席状況</h1>
+    <a href="{% url "attendance:MyPageView" %}"><button type="button">戻る</button></a>
+    <table>
+        {% for attend in attends %}
+        <tr>
+            <th>{{attend.student}}</th>
+            <td>{{attend.time}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% comment %} <p>{{attend.student}}</p> {% endcomment %}
+{% comment %} <p>{{attend.period}}</p> {% endcomment %}
+{% comment %} <p>{{attend.time}}</p> {% endcomment %}
+{% endblock body %}

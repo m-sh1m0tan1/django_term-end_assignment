@@ -1,26 +1,34 @@
 {% extends "base.html" %}
+{% load static %}
 {% block user %}{{user}}でログイン中{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static "css/SubjectCreate.css" %}">{% endblock css %}
 {% block title %}{{object|yesno:'教科編集, 新規作成'}}{% endblock %}
 {% block body %}
-<h1>{{object|yesno:'教科編集,新規作成'}}</h1>
-
-{% if messages %}
+<div class="main">
+    <h1>{{object|yesno:'教科編集,新規作成'}}</h1>
+    {% if object %} {% comment %}yesnoはテキストの切り替え専用らしいです{% endcomment %}
+    <a href="{% url "attendance:SubjectDeleteView" object.id %}"><button type="button">削除</button></a>
+    {% endif %}
+    
+    {% comment %} {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
-    </ul>
-{% endif %}
-
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="{{object|yesno:'更新,作成'}}">
-    <a href="{% url "attendance:ModelListView" %}"><button type="button">戻る</button></a>
-    {% if object %} {% comment %}yesnoはテキストの切り替え専用らしいです{% endcomment %}
-        <a href="{% url "attendance:SubjectDeleteView" object.id %}"><button type="button">削除</button></a>
-    {% endif %}
-</form>
-
-
+        </ul>
+        {% endif %} {% endcomment %}
+        
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{form.as_table}}
+                <td>
+                    <input type="submit" value="{{object|yesno:'更新,作成'}}">
+                </td>
+                <td>
+                    <a href="{% url "attendance:ModelListView" %}"><button type="button">戻る</button></a>
+                </td>
+            </table>
+        </form>
+    </div>
 {% endblock body %}

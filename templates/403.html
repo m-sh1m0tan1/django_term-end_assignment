@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Forbidden{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{% static "css/403.css" %}">{% endblock css %}
+{% block body %}
+<div class="main">
+    <h1>403エラー</h1>
+    <p>{{error_message}}</p>
+    <a href="{% url "login" %}"><button type="button">ログインページに戻る</button></a>
+</div>
+{% endblock body %}

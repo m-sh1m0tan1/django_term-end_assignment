@@ -1,12 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 {% block user %}{{user}}でログイン中{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static "css/SubjectDelete.css" %}">{% endblock css %}
+{% block title %}教科削除{% endblock title %}
 {% block body %}
-<h1>教科削除</h1>
-
+<div class="main">
+    <h1>教科削除</h1>
+    
 <p>{{object.subject_name}}を削除しますか？<br>時間割に登録されていた場合これを削除すると同時に消去されます。</p>
 <form method="POST">
     {% csrf_token %}
     <button type="submit">削除</button>
     <a href="{% url "attendance:SubjectUpdateView" object.id %}"><button type="button">戻る</button></a>
 </form>
+</div>
 {% endblock body %}

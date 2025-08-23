@@ -9,12 +9,28 @@
 {% block css %}<link rel="stylesheet" href="{% static "css/signup.css" %}">{% endblock %}
 {% block body %}
 {% comment %} <p>{{user}}</p> {% endcomment %}
-<form method="POST">
-    {% csrf_token %}
-    <ul>
-        {{ form.as_ul }}
-    </ul>
-    <input type="submit">
-    <a href="{% url "attendance:ModelListView" %}"><button type="button">ホームに戻る</button></a>
+<div class="main">
+
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+        {% for field in form %}
+        <tr>
+            <th class="input">{{ field.label_tag }}</th>
+            <td class="input">
+                {{ field }}
+                {% if field.help_text %}
+                <div class="help">{{ field.help_text }}</div>
+                {% endif %}
+                {% for error in field.errors %}
+                <div class="error">{{ error }}</div>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+        <td><input type="submit" value="登録"></td>
+        <td><a href="{% url "attendance:ModelListView" %}"><button type="button">ホームに戻る</button></a></td>
+    </table>
 </form>
+</div>
 {% endblock %}

@@ -126,11 +126,10 @@ class Attend(models.Model):
 # 休講・振替用のテーブル
 class ReplacementInfo(models.Model):
     original_period = models.ForeignKey(Period, on_delete=models.CASCADE, verbose_name='元の授業')
-    replacement_day_of_week = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], choices=Period.day_of_week_choices, verbose_name='振替曜日')
-    replacement_period = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(4)], verbose_name='振替時間帯', choices=Period.day_of_week_choices)
+    replacement_period = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(4)], verbose_name='振替時間帯', choices=Period.period_choices)
     reason = models.TextField(verbose_name='理由')
-    cancel_date = models.DateField(verbose_name='振替日', null=True, blank=True)
-    replacement_date = models.DateField(verbose_name='元授業の日付')
+    replacement_date = models.DateField(verbose_name='振替日', null=True, blank=True)
+    cancel_date = models.DateField(verbose_name='元授業の日付')
     
     class Meta:
     # 振替授業が重複して登録されるのを防ぐ
@@ -142,4 +141,4 @@ class ReplacementInfo(models.Model):
         ]
     
     def __str__(self):
-        return self.original_period
+        return str(self.original_period)

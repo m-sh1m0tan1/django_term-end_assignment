@@ -1,4 +1,4 @@
-# 何限が何時から始まって何時終了なのか判定する
+# 何限が何時から始まって何時終了なのか判定する、時間に多少余裕を持たせています
 
 from datetime import datetime, time, date
 

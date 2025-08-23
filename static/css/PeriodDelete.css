@@ -3,9 +3,10 @@
 .main{
     width: 70%;
     background-color: #ccffd5;
-    margin: 0 auto;
+    margin: 20px auto;
     border-radius: 20px;
     /* text-align: center; */
+    padding-bottom: 20px;
 }
 
 .main table{
@@ -19,6 +20,7 @@ input[type="submit"] {
     font-size: 1rem;
     padding: 0 16px;
     margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 5px;   
     background-color: white;
     border-width: 1px;

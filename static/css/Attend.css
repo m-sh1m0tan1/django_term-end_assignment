@@ -3,13 +3,8 @@
 .main{
     width: 70%;
     background-color: #ccffd5;
-    margin: 0 auto;
+    margin: 20px auto;
     border-radius: 20px;
-    /* text-align: center; */
-}
-
-.main table{
-    margin: 0 auto;
 }
 
 button,
@@ -29,4 +24,11 @@ button:hover,
 input[type="submit"]:hover{
     background-color: #00ff2f;
     cursor: pointer;
+}
+
+select{
+    margin-top: 20px;
+    min-width: 300px;
+    min-height: 50px;
+    text-align: center;
 }

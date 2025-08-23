@@ -3,9 +3,10 @@
 .main{
     width: 70%;
     background-color: #ccffd5;
-    margin: 0 auto;
+    margin: 20px auto;
     border-radius: 20px;
     /* text-align: center; */
+    padding-bottom: 20px;
 }
 
 .main table{
@@ -27,6 +28,35 @@ input[type="submit"] {
 
 button:hover,
 input[type="submit"]:hover{
+    background-color: #00ff2f;
+    cursor: pointer;
+}
+
+/* .main table{
+    table-layout: auto;
+    width: 100%;
+    max-width: 50%;
+} */
+
+th{
+    text-align: center;
+}
+
+.main td a{
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    display: block;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.main .subject:hover{
+    background-color: #00ff2f;
+}
+
+.main a:hover{
     background-color: #00ff2f;
     cursor: pointer;
 }

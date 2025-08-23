@@ -1,0 +1,118 @@
+@charset 'utf-8';
+
+.subjects{
+    width: 70%;
+    background-color: #ccffd5;
+    margin: 20px auto;
+    border-radius: 20px;
+}
+
+.flex{
+    /* display: flex; */
+    justify-content: center;
+}
+
+table{
+    table-layout: fixed;
+    width: 100%;
+    padding: 0 30px;
+}
+
+.subject-name{
+    width: 40%;
+}
+
+.teacher-name{
+    width: 40%;
+}
+
+.place{
+    width: 10%;
+}
+
+button:hover{
+    border-radius: 5px;
+    background-color: #00ff2f;
+    cursor: pointer;
+}
+
+button{
+    border-radius: 5px;
+    border-width: 1px;
+    background-color: white;
+}
+
+.periods{
+    width: 95%;
+    background-color: #ccffd5;
+    border-radius: 20px;
+    margin: 10px auto;
+}
+
+.counter{
+    width: 5%;
+    border: none;
+}
+
+.title{
+    /* width: 18%; */
+    border: solid;
+    border-collapse: collapse;
+    border-width: 2px;
+}
+
+.periods table,
+.periods tr,
+.periods td{
+    border: solid;
+    border-width: 2px;
+    border-color: #303030;
+    border-collapse: collapse;
+}
+
+/* .periods th,
+.periods td{
+    border-radius: 20px;
+} */
+
+.periods a{
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    /* margin: 5px 0; */
+    display: inline;
+}
+
+.periods td, .periods th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* max-width: 120px; 必要に応じて調整 */
+    max-height: 40px;
+    vertical-align: middle;
+}
+.periods a {
+    display: inline;
+    padding: 5px;
+}
+
+.periods .subject:hover{
+    background-color: #00ff2f;
+}
+
+.periods button:hover{
+    background-color: #00ff2f;
+    cursor: pointer;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    /* width: 100%; */
+    margin: 0 auto;
+    gap: 0px;
+}
+
+/* .buttons button{
+    width: 100px;
+} */

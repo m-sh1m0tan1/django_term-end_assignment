@@ -1,1 +1,35 @@
 {% extends "base.html" %}
+{% load static %}
+{% block title %}マイページ{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{% static "css/Mypage.css" %}">{% endblock css %}
+{% block user %}{{user}}でログイン中{% endblock user %}
+{% block body %}
+<div class="main">
+  {% comment %} {% for item in subject_attends %}
+  <h3>{{ item.subject.subject_name }}</h3>
+  {% endfor %} {% endcomment %}
+  {% comment %} <hr> {% endcomment %}
+  <h1>担当教科</h1>
+  {% comment %} {% for item in subject_attends %}
+  <h3>{{ item.subject.subject_name }}</h3>
+  <ul>
+    {% for attend in item.attends %}
+    <li>{{ attend.student }} - {{ attend.period }} - {{ attend.time }}</li>
+    {% empty %}
+    <li>出席記録なし</li>
+    {% endfor %}
+    </ul>
+    {% endfor %} {% endcomment %}
+    
+    <table>
+      {% for subject in subjects %}
+      <tr>
+        <th>{{subject.subject_name}}</th>
+        <td><a href="{% url "attendance:AttendCheckView" subject.id %}">出席状況を確認</a></td>
+      </tr>
+      {% comment %} <td><a href="{% url "attendance:ReplacementView" subject.id %}">振替</a></td> {% endcomment %}
+      {% endfor %}
+    </table>
+    <a href="{% url "attendance:ModelListView" %}"><button type="button">戻る</button></a><br>
+  </div>
+{% endblock body %}

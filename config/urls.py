@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
+from attendance.views import custom_permission_denied_view
+
+handler403 = 'attendance.views.custom_permission_denied_view'
 
 urlpatterns = [
     path('admin/', admin.site.urls),

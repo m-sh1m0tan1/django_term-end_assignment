@@ -1,12 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 {% block user %}{{user}}でログイン中{% endblock %}
-{% block title %}生徒用{% endblock title %}
+{% block title %}出席{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{% static "css/Attend.css" %}">{% endblock css %}
 {% block body %}
 {% if user.is_authenticated %}
-
-{% if messages %}
-{% for message in messages %}
-<p>{{message}}</p>
+<div class="main">
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{message}}</p>
 {% endfor %}
 {% endif %}
 <form method="POST">
@@ -24,4 +26,5 @@
 {{data.time}}
 <br>
 {% endfor %}
+</div>
 {% endblock body %}

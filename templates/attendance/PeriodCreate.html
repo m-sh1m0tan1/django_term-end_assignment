@@ -1,24 +1,53 @@
 {% extends "base.html" %}
+{% load static %}
 {% block user %}{{user}}でログイン中{% endblock %}
 {% block title %}{{object|yesno:'時間割更新,時間割登録'}}{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css"/>
+    <link rel="stylesheet" href="{% static "css/PeriodCreate.css" %}">
+{% endblock css %}
 {% block body %}
-<h1>{{object|yesno:'時間割更新,時間割登録'}}</h1>
-
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}" {% endif %} >{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="{{object|yesno:'更新,作成'}}">
-    <a href="{% url "attendance:ModelListView" %}"><button type="button">戻る</button></a>
+<div class="main">
+    <h1>{{object|yesno:'時間割更新,時間割登録'}}</h1>
     {% if object %} {% comment %}yesnoはテキストの切り替え専用らしいです{% endcomment %}
         <a href="{% url "attendance:PeriodDeleteView" object.id %}"><button type="button">削除</button></a>
     {% endif %}
-</form>
+    {% if object %}
+    <h3>教科:{{Period.subject}}</h3><br>
+    {% endif %}
+    {% comment %} {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %} >{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %} {% endcomment %}
+        
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{form.as_table}}
+                <td>
+                    <input type="submit" value="{{object|yesno:'更新,作成'}}">
+                </td>
+                <td>
+                    <a href="{% url "attendance:ModelListView" %}"><button type="button">戻る</button></a>
+                </td>
+            </table>
+        </form>
+    </div>
 {% endblock %}
+        
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".chosen-select").chosen({
+          width: "30%", // 必要に応じて
+          no_results_text: "該当なし",
+          placeholder_text_multiple: "教科を選択してください",
+        });
+      });
+</script>
+{% endblock script %}

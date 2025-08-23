@@ -1,51 +1,73 @@
 {% extends "base.html" %}
+{% load static %}
 {% block user %}{{user}}でログイン中{% endblock %}
 {% block title %}ホーム{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static "css/home.css" %}">{% endblock css %}
 {% block body %}
 {% if user.is_authenticated %}
-<table>
-    <tr>
-        <th>教科名</th>
-        <th>講師名</th>
-        <th>教室</th>
-    </tr>
-    {% for data in Subject %}
-    <tr>
-        <td>{{data.subject_name}}</td>
-        <td>{{data.charge_teacher}}</td>
-        <td>
-            {% if data.place is None %}
-                未定
-            {% else %}
-                {{data.place}}
-            {% endif %}
-        </td>
-        <td><a href="{% url "attendance:SubjectUpdateView" data.id %}"><button type="button">編集</button></a></td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="flex">
+    <div class="subjects">
+        <table>
+            <tr>
+                <th class="subject-name">教科名</th>
+                <th class="teacher-name">講師名</th>
+                <th class="place">教室</th>
+            </tr>
+            {% for data in Subject %}
+            <tr>
+                <td>{{data.subject_name}}</td>
+                <td>{{data.charge_teacher}}</td>
+                <td>
+                    {% if data.place is None %}
+                    未定
+                    {% else %}
+                    {{data.place}}
+                    {% endif %}
+                </td>
+                <td><a href="{% url "attendance:SubjectUpdateView" data.id %}"><button type="button">編集</button></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 <hr>
-<table>
-    <tr>
-        <th></th>
-        <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th>
+<div class="flex">
+    <div class="periods">
+
+        <table>
+            <tr>
+                <th class="counter"></th>
+        <th class="title">月</th>
+        <th class="title">火</th>
+        <th class="title">水</th>
+        <th class="title">木</th>
+        <th class="title">金</th>
     </tr>
     {% for row in timetable %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            {% for subjects in row %}
-                <td>
-                    {% for data in subjects %}
-                        <a href="{% url "attendance:PeriodUpdateView" data.id %}">{{ data.subject }}</a><br>
-                    {% endfor %}
-                </td>
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        {% for subjects in row %}
+        <td>
+            {% for data in subjects %}
+            <a href="{% url "attendance:PeriodUpdateView" data.id %}" class="subject">{{ data.subject }}</a><br>
             {% endfor %}
-        </tr>
+        </td>
+        {% endfor %}
+    </tr>
     {% endfor %}
 </table>
-<a href="{% url 'attendance:SubjectCreateView' %}"><button type="button">教科新規登録</button></a><br>
-<a href="{% url "attendance:PeriodCreateView" %}"><button type="button">時間割登録</button></a><br>
-<a href="{% url "signup" %}"><button type="button">ユーザー新規登録</button></a><br>
-<a href="{% url 'logout' %}"><button type="button">ログアウト</button></a>
+<div class="buttons">
+    <a href="{% url 'attendance:SubjectCreateView' %}"><button type="button">教科新規登録</button></a>
+    <a href="{% url "attendance:PeriodCreateView" %}"><button type="button">時間割登録</button></a>
+    <a href="{% url "signup" %}"><button type="button">ユーザー新規登録</button></a>
+    <a href="{% url "attendance:PeriodSemester1View" %}"><button type="button">前期時間割</button></a>
+    <a href="{% url "attendance:PeriodSemester2View" %}"><button type="button">後期時間割</button></a>
+    <a href="{% url "attendance:MyPageView" %}"><button type="button">マイページ</button></a>
+    <a href="{% url 'logout' %}"><button type="button">ログアウト</button></a>
+</div>
+</div>
+</div>
 {% endif %}
 {% endblock body %}

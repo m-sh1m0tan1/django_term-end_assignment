@@ -1,20 +1,30 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&family=Kiwi+Maru&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static "css/base.css" %}">
     {% block css %}{% endblock %}
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>出席管理アプリ</h1>
-        <h3 class="user">{% block user %}{% endblock %}</h3>
+      <h1>出席管理アプリ</h1>
+      <h3 class="user">{% block user %}{% endblock %}</h3>
     </header>
-    {% block body %}{% endblock %}
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% block body %}{% endblock %} 
     {% block script %}{% endblock %}
-</body>
+  </body>
 </html>

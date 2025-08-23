@@ -4,10 +4,15 @@
 {% block css %}<link rel="stylesheet" href="{% static "css/login.css" %}">{% endblock %}
 {% block body %}
 <h1>ログイン</h1>
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit">
-    <a href="{% url "signup" %}"><button type="button">新規登録</button></a>
-</form>
+<div class="main">
+
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+            <td><input type="submit" value="ログイン"></td>
+            <td><a href="{% url "signup" %}"><button type="button">新規登録</button></a></td>
+        </table>
+    </form>
+</div>
 {% endblock %}

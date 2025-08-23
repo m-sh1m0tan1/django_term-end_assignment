@@ -14,6 +14,8 @@ urlpatterns = [
     path('PeriodDelete/<int:pk>/', PeriodDeleteView.as_view(), name="PeriodDeleteView"),
     path('Attend/', StudentAttendView.as_view(), name="StudentAttendView"),
     path('Mypage/', MyPageView.as_view(), name="MyPageView"),
-    path('PeriodList1/', PeriodSemester1View.as_view(), name="Semester1View"),
-    path('PeriodList2/', PeriodSemester2View.as_view(), name="Semester2View"),
+    path('PeriodList1/', PeriodSemester1View.as_view(), name="PeriodSemester1View"),
+    path('PeriodList2/', PeriodSemester2View.as_view(), name="PeriodSemester2View"),
+    # path('Replacement/<int:pk>/', ReplacementView.as_view(), name="ReplacementView"),
+    path('AttendCheck/<int:pk>/', AttendCheckView.as_view(), name="AttendCheckView"),
 ]

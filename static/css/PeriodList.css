@@ -1,0 +1,93 @@
+@charset 'utf-8';
+
+.main{
+    width: 95%;
+    background-color: #ccffd5;
+    margin: 20px auto;
+    border-radius: 20px;
+    /* text-align: center; */
+}
+
+.main table{
+    margin: 0 auto;
+}
+
+button,
+input[type="submit"] {
+    height: 50px;
+    min-width: 120px;     
+    font-size: 1rem;
+    padding: 0 16px;
+    margin-top: 10px;
+    border-radius: 5px;   
+    background-color: white;
+    border-width: 1px;
+    box-sizing: border-box;
+}
+
+button:hover,
+input[type="submit"]:hover{
+    background-color: #00ff2f;
+    cursor: pointer;
+}
+
+.flex{
+    justify-content: center;
+}
+
+table{
+    table-layout: fixed;
+    width: 100%;
+    padding: 0 30px;
+}
+
+.counter {
+    width: 5%;
+    border: none;
+}
+
+.title{
+    border: solid;
+    border-collapse: collapse;
+    border-width: 2px;
+}
+
+.main table, 
+.main tr, 
+.main td{
+    border: solid;
+    border-width: 2px;
+    border-color: #303030;
+    border-collapse: collapse;
+}
+
+.main a{
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    /* margin: 5px 0; */
+    display: inline;
+}
+
+.main td, .main th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* max-width: 120px; 必要に応じて調整 */
+    max-height: 40px;
+    vertical-align: middle;
+}
+.main a {
+    display: inline;
+    padding: 5px;
+}
+
+
+.main .subject:hover{
+    background-color: #00ff2f;
+}
+
+.main button:hover{
+    background-color: #00ff2f;
+    cursor: pointer;
+}

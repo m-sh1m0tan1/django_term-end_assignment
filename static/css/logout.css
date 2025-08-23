@@ -1,17 +1,5 @@
 @charset 'utf-8';
 
-.main{
-    width: 70%;
-    background-color: #ccffd5;
-    margin: 0 auto;
-    border-radius: 20px;
-    /* text-align: center; */
-}
-
-.main table{
-    margin: 0 auto;
-}
-
 button,
 input[type="submit"] {
     height: 50px;
