@@ -42,7 +42,7 @@ class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     
     role = models.IntegerField(choices=role_choices, null=True, verbose_name='区分', default=2)
-    number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2147483647)], null=True, unique=True, verbose_name='学籍番号', blank=True)
+    number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(2147483647)], null=False, unique=True, verbose_name='学籍番号', blank=True)
 
     # ログインIDをemailに設定
     USERNAME_FIELD = 'email'
