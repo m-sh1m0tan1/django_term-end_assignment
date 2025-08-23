@@ -29,7 +29,7 @@ try:
         username = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
         email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
         password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'morijyobi')
-        User.objects.create_superuser(username=username, email=email, password=password)
+        User.objects.create_superuser(email=email, username=username,  password=password)
 except OperationalError as e:
     print('Database not ready yet:', e)
     
